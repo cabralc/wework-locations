@@ -1,7 +1,13 @@
 <?php
 
+use App\Country;
+use App\Floor;
+use App\Location;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class DatabaseSeeder
+ */
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,6 +17,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $country  = factory(Country::class)->create();
+        $location = factory(Location::class)->create(
+            ['country' => $country->code,]
+        );
+        $floor    = factory(Floor::class)->create(
+            ['location_id' => $location->id,]
+        );
     }
 }
